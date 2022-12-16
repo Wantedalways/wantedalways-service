@@ -6,7 +6,8 @@
     <artifactId>wantedalways-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>wantedalways-service</name>
-    <description>wantedalways-service</description>
+    <description>企业服务父工程</description>
+    <packaging>pom</packaging>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -15,9 +16,15 @@
         <relativePath/>
     </parent>
 
+    <modules>
+        <module>wantedalways-system</module>
+        <module>wantedalways-gateway</module>
+    </modules>
+
     <properties>
         <java.version>1.8</java.version>
     </properties>
+
     <dependencies>
         <!--spring boot-->
         <dependency>

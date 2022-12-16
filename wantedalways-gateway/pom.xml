@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <artifactId>wantedalways-gateway</artifactId>
+    <name>wantedalways-gateway</name>
+    <description>企业信息化系统网关模块</description>
+
+    <parent>
+        <artifactId>wantedalways-service</artifactId>
+        <groupId>com.wantedalways</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+
+    <dependencies>
+
+    </dependencies>
+
+    <build>
+
+    </build>
+
+</project>
