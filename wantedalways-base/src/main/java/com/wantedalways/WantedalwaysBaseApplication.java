@@ -7,9 +7,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author Wantedalways
  */
 @SpringBootApplication
-public class WantedalwaysGatewayApplication {
+public class WantedalwaysBaseApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(WantedalwaysGatewayApplication.class, args);
+        SpringApplication.run(WantedalwaysBaseApplication.class, args);
     }
+
 }

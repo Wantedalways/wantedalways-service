@@ -2,9 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>wantedalways-system</artifactId>
-    <name>wantedalways-system</name>
-    <description>企业服务系统模块</description>
+    <artifactId>wantedalways-base</artifactId>
+    <name>wantedalways-base</name>
+    <description>基础配置模块</description>
 
     <parent>
         <artifactId>wantedalways-service</artifactId>
@@ -12,10 +12,21 @@
         <version>1.0.0</version>
     </parent>
 
+    <properties>
+
+    </properties>
+
     <dependencies>
+        <!--Spring MVC-->
         <dependency>
-            <groupId>com.wantedalways</groupId>
-            <artifactId>wantedalways-base</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <!--数据库相关-->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
     </dependencies>
 
