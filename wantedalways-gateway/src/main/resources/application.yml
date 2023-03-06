@@ -1,0 +1,15 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: wantedalways-gateway
+  config:
+    import:
+      - optional:nacos:wantedalways-gateway.yaml
+  cloud:
+    nacos:
+      config:
+        server-addr: @nacos.addr@
+      discovery:
+        server-addr: @nacos.addr@
+

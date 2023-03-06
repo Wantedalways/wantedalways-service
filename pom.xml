@@ -12,7 +12,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.6.6</version>
+        <version>2.6.11</version>
         <relativePath/>
     </parent>
 
@@ -29,11 +29,14 @@
         <wantedalways.version>1.0.0</wantedalways.version>
 
         <!--Spring Cloud-->
-        <spring-cloud.version>2021.0.5</spring-cloud.version>
+        <spring-cloud.version>2021.0.4</spring-cloud.version>
         <spring-cloud-alibaba.version>2021.0.4.0</spring-cloud-alibaba.version>
 
         <!--数据库相关-->
         <mybatis-plus.version>3.5.3.1</mybatis-plus.version>
+
+        <!--工具类-->
+        <common.version>2.6</common.version>
     </properties>
 
     <dependencies>
@@ -62,6 +65,15 @@
                 <groupId>org.springframework.cloud</groupId>
                 <artifactId>spring-cloud-dependencies</artifactId>
                 <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
 
             <!--数据库相关-->
@@ -69,6 +81,13 @@
                 <groupId>com.baomidou</groupId>
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!--工具类-->
+            <dependency>
+                <groupId>commons-lang</groupId>
+                <artifactId>commons-lang</artifactId>
+                <version>${common.version}</version>
             </dependency>
 
             <!--自定义模块-->
@@ -108,5 +127,18 @@
             </resource>
         </resources>
     </build>
+
+    <profiles>
+        <!--开发环境-->
+        <profile>
+            <id>dev</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <nacos.addr>127.0.0.1:8848</nacos.addr>
+            </properties>
+        </profile>
+    </profiles>
 
 </project>
