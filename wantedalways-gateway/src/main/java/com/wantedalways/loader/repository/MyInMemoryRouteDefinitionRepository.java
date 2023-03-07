@@ -23,7 +23,8 @@ public class MyInMemoryRouteDefinitionRepository implements RouteDefinitionRepos
 
     @Override
     public Flux<RouteDefinition> getRouteDefinitions() {
-        return null;
+        Map<String, RouteDefinition> routesSafeCopy = new LinkedHashMap<>(this.routes);
+        return Flux.fromIterable(routesSafeCopy.values());
     }
 
     @Override

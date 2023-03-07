@@ -8,6 +8,7 @@ import com.alibaba.nacos.api.exception.NacosException;
 import com.google.common.collect.Lists;
 import com.wantedalways.config.RouteConfig;
 import com.wantedalways.loader.repository.DynamicRouteService;
+import com.wantedalways.loader.repository.MyInMemoryRouteDefinitionRepository;
 import com.wantedalways.loader.vo.MyRouteDefinition;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
@@ -44,7 +45,15 @@ public class DynamicRouteLoader implements ApplicationEventPublisherAware {
 
     private ConfigService configService;
 
+    private MyInMemoryRouteDefinitionRepository repository;
+
+
     public static final long DEFAULT_TIMEOUT = 30000;
+
+    public DynamicRouteLoader(MyInMemoryRouteDefinitionRepository repository, DynamicRouteService routeService) {
+        this.repository = repository;
+        this.routeService = routeService;
+    }
 
     /**
      * 初始化路由

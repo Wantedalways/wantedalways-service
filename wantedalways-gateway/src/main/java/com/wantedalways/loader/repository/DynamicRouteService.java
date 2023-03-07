@@ -20,9 +20,10 @@ public class DynamicRouteService implements ApplicationEventPublisherAware {
     private MyInMemoryRouteDefinitionRepository repository;
 
     private ApplicationEventPublisher publisher;
+
     @Override
     public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-
+        this.publisher = applicationEventPublisher;
     }
 
     /**
