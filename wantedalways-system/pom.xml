@@ -13,9 +13,16 @@
     </parent>
 
     <dependencies>
+        <!--自建项目-->
         <dependency>
             <groupId>com.wantedalways</groupId>
             <artifactId>wantedalways-base</artifactId>
+        </dependency>
+
+        <!--spring cloud-->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
         </dependency>
     </dependencies>
 

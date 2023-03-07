@@ -37,6 +37,7 @@
 
         <!--工具类-->
         <common.version>2.6</common.version>
+        <fastjson.version>1.2.83</fastjson.version>
     </properties>
 
     <dependencies>
@@ -55,6 +56,13 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
+        </dependency>
+
+        <!--json工具类-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>${fastjson.version}</version>
         </dependency>
     </dependencies>
 
@@ -136,7 +144,8 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <nacos.addr>127.0.0.1:8848</nacos.addr>
+                <profile.name>dev</profile.name>
+                <nacos.addr>114.116.224.46:8848</nacos.addr>
             </properties>
         </profile>
     </profiles>

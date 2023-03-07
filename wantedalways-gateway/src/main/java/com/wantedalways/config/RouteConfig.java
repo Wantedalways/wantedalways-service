@@ -1,5 +1,8 @@
 package com.wantedalways.config;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.context.annotation.Configuration;
@@ -11,38 +14,18 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 @RefreshScope
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class RouteConfig {
 
+    @Value("${spring.cloud.nacos.discovery.server-addr}")
     public String serverAddr;
 
+    @Value("${wantedalways.config.route.data-id}")
     public String dataId;
 
+    @Value("${wantedalways.config.route.group:DEFAULT_GROUP}")
     public String routeGroup;
 
-    @Value("${spring.cloud.nacos.discovery.server-addr}")
-    public void setServerAddr(String serverAddr) {
-        this.serverAddr = serverAddr;
-    }
-
-    @Value("${wantedalways.config.route.data-id}")
-    public void setDataId(String dataId) {
-        this.dataId = dataId;
-    }
-
-    @Value("${wantedalways.config.route.group:DEFAULT_GROUP}")
-    public void setRouteGroup(String routeGroup) {
-        this.routeGroup = routeGroup;
-    }
-
-    public String getServerAddr() {
-        return serverAddr;
-    }
-
-    public String getDataId() {
-        return dataId;
-    }
-
-    public String getRouteGroup() {
-        return routeGroup;
-    }
 }

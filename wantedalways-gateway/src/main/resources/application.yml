@@ -5,7 +5,7 @@ spring:
     name: wantedalways-gateway
   config:
     import:
-      - optional:nacos:wantedalways-gateway.yaml
+      - optional:nacos:${spring.application.name}-@profile.name@.yaml
   cloud:
     nacos:
       config:
