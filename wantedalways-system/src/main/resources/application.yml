@@ -3,7 +3,12 @@ server:
 spring:
   application:
     name: wantedalways-system
+  config:
+    import:
+      - optional:nacos:wantedalways-@profile.name@.yaml
   cloud:
     nacos:
       discovery:
+        server-addr: @nacos.addr@
+      config:
         server-addr: @nacos.addr@

@@ -1,6 +1,5 @@
 package com.wantedalways.loader.vo;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.cloud.gateway.route.RouteDefinition;

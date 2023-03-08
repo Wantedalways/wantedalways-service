@@ -73,7 +73,7 @@ public class DynamicRouteLoader implements ApplicationEventPublisherAware {
             configService = NacosFactory.createConfigService(routeConfig.getServerAddr());
             String configInfo = configService.getConfig(routeConfig.getDataId(), routeConfig.getRouteGroup(), DEFAULT_TIMEOUT);
             if (StringUtils.isNotBlank(configInfo)) {
-                log.info("获取当前网关配置:\n\r" + configInfo);
+                log.info("已获取当前网关配置。");
                 routes = JSON.parseArray(configInfo, RouteDefinition.class);
             } else {
                 log.warn("未配置网关，请检查nacos！");
@@ -97,7 +97,7 @@ public class DynamicRouteLoader implements ApplicationEventPublisherAware {
             configService.addListener(dataId, group, new Listener() {
                 @Override
                 public void receiveConfigInfo(String configInfo) {
-                    log.info("进行网关更新:\n\r{}", configInfo);
+                    log.info("网关已更新。");
                     List<MyRouteDefinition> definitionList = JSON.parseArray(configInfo, MyRouteDefinition.class);
                     for (MyRouteDefinition definition : definitionList) {
                         routeService.update(definition);
