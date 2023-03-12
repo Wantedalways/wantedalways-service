@@ -40,12 +40,13 @@ public class Result<T> {
      */
     private Long timestamp = System.currentTimeMillis();
 
-    public static<T> Result<T> error(int code, String message, T object) {
+    public static<T> Result<T> error(int code, String message) {
 
-        return Result.<T>builder()
-                .success(false)
-                .code(code)
-                .message(message)
-                .data(object).build();
+        Result<T> result = new Result<>();
+        result.setSuccess(false);
+        result.setCode(code);
+        result.setMessage(message);
+
+        return result;
     }
 }

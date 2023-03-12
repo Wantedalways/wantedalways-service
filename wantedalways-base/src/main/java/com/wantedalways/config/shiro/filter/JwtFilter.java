@@ -2,7 +2,7 @@ package com.wantedalways.config.shiro.filter;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wantedalways.common.constant.CommonConstant;
-import com.wantedalways.common.exception.TokenLapseException;
+import com.wantedalways.config.shiro.JwtUtil;
 import com.wantedalways.config.vo.JwtToken;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
@@ -26,7 +26,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      * JWT登录认证，判断请求是否携带token并转交Realm处理
      */
     @Override
-    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) throws TokenLapseException {
+    protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
 
         HttpServletRequest servletRequest = (HttpServletRequest) request;
         // 获取token
@@ -34,9 +34,13 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
         JwtToken jwtToken = new JwtToken(token);
 
         // 转交Realm完成认证，认证错误则抛出异常
-        getSubject(request, response).login(jwtToken);
-
-        return true;
+        try {
+            getSubject(request, response).login(jwtToken);
+            return true;
+        } catch (AuthenticationException e) {
+            JwtUtil.responseError(response, 401, "token失效，请重新登录！");
+            return false;
+        }
     }
 
     /**

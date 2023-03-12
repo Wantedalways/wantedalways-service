@@ -4,6 +4,7 @@ import com.wantedalways.config.vo.ShiroVo;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @author Wantedalways
  */
 @Component("baseConfig")
-@ConditionalOnProperty("wantedalways")
+@ConfigurationProperties(prefix = "wantedalways")
 @Setter
 @Getter
 public class BaseConfig {

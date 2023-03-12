@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/sys/user")
 public class SysUserController {
 
-
+    @GetMapping("/test")
+    public String test() {
+        return "success";
+    }
 
 }

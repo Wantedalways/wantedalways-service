@@ -88,6 +88,12 @@ public class SysUser implements Serializable {
     private String avatar;
 
     /**
+     * 生日
+     */
+    @TableField("birthday")
+    private Date birthday;
+
+    /**
      * 用户状态（0，已删除；1，正常；2，禁用）
      */
     @TableField("status")
