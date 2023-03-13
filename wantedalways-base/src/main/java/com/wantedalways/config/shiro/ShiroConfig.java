@@ -1,12 +1,10 @@
 package com.wantedalways.config.shiro;
 
-import com.baomidou.mybatisplus.core.toolkit.ObjectUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wantedalways.config.BaseConfig;
 import com.wantedalways.config.shiro.filter.CustomShiroFilterFactoryBean;
 import com.wantedalways.config.shiro.filter.JwtFilter;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.shiro.mgt.DefaultSecurityManager;
 import org.apache.shiro.mgt.DefaultSessionStorageEvaluator;
 import org.apache.shiro.mgt.DefaultSubjectDAO;
 import org.apache.shiro.mgt.SecurityManager;

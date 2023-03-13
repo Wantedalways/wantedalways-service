@@ -1,9 +1,13 @@
 package com.wantedalways.config.shiro;
 
 import com.auth0.jwt.JWT;
+import com.auth0.jwt.JWTVerifier;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
+import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.wantedalways.common.api.CommonApi;
 import com.wantedalways.common.api.vo.Result;
 import com.wantedalways.common.constant.CacheConstant;
 import com.wantedalways.common.system.vo.LoginUser;
@@ -15,12 +19,18 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 /**
  * Jwt工具类
  * @author Wantedalways
  */
 public class JwtUtil {
+
+    /**
+     * Token有效期为1小时（Token在redis中缓存时间为两倍
+     */
+    public static final long EXPIRE_TIME = 60 * 60 * 1000;
 
     /**
      * 返回token验证错误
@@ -57,7 +67,7 @@ public class JwtUtil {
      * 获取登录用户
      * @return
      */
-    public static LoginUser getLoginUser(String userId, RedisUtil redisUtil) {
+    public static LoginUser getLoginUser(String userId, RedisUtil redisUtil, CommonApi commonApi) {
         LoginUser loginUser = null;
         String loginUserKey = CacheConstant.SYS_USERS_CACHE + "::" + userId;
         // 通过redis获取缓存用户，防止system服务问题影响到微服务间调用
@@ -70,9 +80,35 @@ public class JwtUtil {
                 e.printStackTrace();
             }
         } else {
-            // 查询用户信息
-            loginUser = commonApi.getUserByName(username);
+            // 从数据库查询用户信息
+            loginUser = commonApi.getUserByUserId(userId);
         }
         return loginUser;
+    }
+
+    /**
+     * 检验token
+     */
+    public static boolean verify(String token, String userId, String password) {
+        // 根据密码生成JWT效验器
+        Algorithm algorithm = Algorithm.HMAC256(password);
+        JWTVerifier verifier = JWT.require(algorithm).withClaim("userId", userId).build();
+        // 效验TOKEN
+        try {
+            verifier.verify(token);
+            return true;
+        } catch (JWTVerificationException e) {
+            return false;
+        }
+    }
+
+    /**
+     * 生成加密后token
+     */
+    public static String sign(String userId, String password) {
+        Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
+        Algorithm algorithm = Algorithm.HMAC256(password);
+        // 附带username信息
+        return JWT.create().withClaim("userId", userId).withExpiresAt(date).sign(algorithm);
     }
 }

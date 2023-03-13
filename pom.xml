@@ -48,6 +48,7 @@
         <!--工具类-->
         <common.version>2.6</common.version>
         <fastjson.version>1.2.83</fastjson.version>
+        <hutool.version>5.3.8</hutool.version>
     </properties>
 
     <dependencies>
@@ -150,6 +151,11 @@
                 <groupId>commons-lang</groupId>
                 <artifactId>commons-lang</artifactId>
                 <version>${common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>cn.hutool</groupId>
+                <artifactId>hutool-core</artifactId>
+                <version>${hutool.version}</version>
             </dependency>
 
             <!--自定义模块-->

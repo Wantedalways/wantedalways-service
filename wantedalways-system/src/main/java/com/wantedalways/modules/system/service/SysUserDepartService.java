@@ -11,6 +11,6 @@ import com.wantedalways.modules.system.entity.SysUserDepart;
  * @author Wantedalways
  * @since 2023-03-02
  */
-public interface ISysUserDepartService extends IService<SysUserDepart> {
+public interface SysUserDepartService extends IService<SysUserDepart> {
 
 }
