@@ -1,4 +1,4 @@
-package com.wantedalways.config.vo;
+package com.wantedalways.config.shiro.vo;
 
 import lombok.Getter;
 import lombok.Setter;

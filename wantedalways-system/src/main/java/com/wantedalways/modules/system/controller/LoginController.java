@@ -24,11 +24,6 @@ import java.io.IOException;
 @RequestMapping("/sys")
 public class LoginController {
 
-    /**
-     * 验证码基底
-     */
-    private final String BASE_CHECK_CODES = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
-
     @Autowired
     private BaseConfig baseConfig;
 
@@ -39,7 +34,8 @@ public class LoginController {
     public Result<String> getCaptcha(String key) {
 
         // 生成验证码
-        String code = RandomUtil.randomString(BASE_CHECK_CODES, 4);
+        String baseCheckCodes = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+        String code = RandomUtil.randomString(baseCheckCodes, 4);
 
         // 转小写存入redis
         String lowerCaseCode = code.toLowerCase();

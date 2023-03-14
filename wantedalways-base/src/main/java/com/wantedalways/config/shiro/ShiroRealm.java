@@ -6,7 +6,7 @@ import com.wantedalways.common.constant.CommonConstant;
 import com.wantedalways.common.system.vo.LoginUser;
 import com.wantedalways.common.util.RedisUtil;
 import com.wantedalways.common.util.SpringContextUtil;
-import com.wantedalways.config.vo.JwtToken;
+import com.wantedalways.config.shiro.vo.JwtToken;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;

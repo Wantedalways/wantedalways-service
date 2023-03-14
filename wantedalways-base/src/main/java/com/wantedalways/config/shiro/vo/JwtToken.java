@@ -1,4 +1,4 @@
-package com.wantedalways.config.vo;
+package com.wantedalways.config.shiro.vo;
 
 import lombok.AllArgsConstructor;
 import org.apache.shiro.authc.AuthenticationToken;

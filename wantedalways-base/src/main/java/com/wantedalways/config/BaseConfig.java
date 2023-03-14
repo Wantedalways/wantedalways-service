@@ -1,6 +1,6 @@
 package com.wantedalways.config;
 
-import com.wantedalways.config.vo.ShiroVo;
+import com.wantedalways.config.shiro.vo.ShiroVo;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;

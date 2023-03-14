@@ -185,6 +185,7 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <configuration>
                     <skipTests>true</skipTests>
+                    <argLine>-Dfile.encoding=UTF-8</argLine>
                 </configuration>
             </plugin>
         </plugins>
@@ -214,6 +215,13 @@
             <properties>
                 <profile.name>dev</profile.name>
                 <nacos.addr>114.116.224.46:8848</nacos.addr>
+            </properties>
+        </profile>
+        <profile>
+            <id>pro</id>
+            <properties>
+                <profile.name>pro</profile.name>
+                <nacos.addr>localhost:8848</nacos.addr>
             </properties>
         </profile>
     </profiles>

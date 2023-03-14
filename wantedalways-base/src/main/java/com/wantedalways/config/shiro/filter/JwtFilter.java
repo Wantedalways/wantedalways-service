@@ -3,7 +3,7 @@ package com.wantedalways.config.shiro.filter;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wantedalways.common.constant.CommonConstant;
 import com.wantedalways.config.shiro.JwtUtil;
-import com.wantedalways.config.vo.JwtToken;
+import com.wantedalways.config.shiro.vo.JwtToken;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter;
 import org.springframework.http.HttpHeaders;

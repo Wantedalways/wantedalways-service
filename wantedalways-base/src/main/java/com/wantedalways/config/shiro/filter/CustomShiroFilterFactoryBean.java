@@ -26,5 +26,4 @@ public class CustomShiroFilterFactoryBean extends ShiroFilterFactoryBean {
         }
         return manager;
     }
-
 }
