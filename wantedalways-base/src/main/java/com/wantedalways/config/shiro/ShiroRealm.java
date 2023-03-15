@@ -140,7 +140,7 @@ public class ShiroRealm extends AuthorizingRealm {
                 String newAuthorization = JwtUtil.sign(userId, password);
                 // 设置超时时间
                 redisUtil.set(CommonConstant.PREFIX_USER_TOKEN + token, newAuthorization);
-                redisUtil.expire(CommonConstant.PREFIX_USER_TOKEN + token, JwtUtil.EXPIRE_TIME *2 / 1000);
+                redisUtil.expire(CommonConstant.PREFIX_USER_TOKEN + token, JwtUtil.EXPIRE_TIME * 2 / 1000);
                 log.info("用户在线操作，已更新token："+ token);
             }
             // 在线操作

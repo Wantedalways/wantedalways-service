@@ -31,4 +31,9 @@ public interface CommonConstant {
      */
     Integer USER_STATUS_DISABLE = 2;
 
+    /**
+     * 随机数
+     */
+    String BASE_CHECK_CODES = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+
 }

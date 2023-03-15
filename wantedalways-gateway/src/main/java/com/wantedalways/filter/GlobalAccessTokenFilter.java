@@ -46,6 +46,7 @@ public class GlobalAccessTokenFilter implements GlobalFilter, Ordered {
         //2.将现在的request，添加当前身份
         ServerHttpRequest mutableReq = exchange.getRequest().mutate().header("Authorization-UserName", "").header(X_GATEWAY_BASE_PATH,basePath).build();
         ServerWebExchange mutableExchange = exchange.mutate().request(mutableReq).build();
+        log.info("111");
         return chain.filter(mutableExchange);
     }
 

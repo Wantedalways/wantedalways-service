@@ -50,6 +50,14 @@ public class Result<T> {
         return result;
     }
 
+    public Result<T> setError(int code, String message) {
+        this.success = false;
+        this.code = code;
+        this.message = message;
+        return this;
+    }
+
+
     public static<T> Result<T> success(String message, T data) {
         Result<T> result = new Result<>();
         result.success = true;
@@ -57,5 +65,29 @@ public class Result<T> {
         result.message = message;
         result.data = data;
         return result;
+    }
+
+    public static<T> Result<T> success(String message) {
+        Result<T> result = new Result<>();
+        result.success = true;
+        result.code = 200;
+        result.message = message;
+        return result;
+    }
+
+    public static<T> Result<T> success() {
+        Result<T> result = new Result<>();
+        result.success = true;
+        result.code = 200;
+        result.message = "成功！";
+        return result;
+    }
+
+    public Result<T> setSuccess(String message, T data) {
+        this.success = true;
+        this.code = 200;
+        this.message = message;
+        this.data = data;
+        return this;
     }
 }

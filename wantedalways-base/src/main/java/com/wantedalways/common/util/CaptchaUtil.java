@@ -1,5 +1,7 @@
 package com.wantedalways.common.util;
 
+import com.wantedalways.common.util.encryption.Md5Util;
+
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;
@@ -13,7 +15,7 @@ import java.util.Random;
  * 验证码工具类
  * @author Wantedalways
  */
-public class RandImageUtil {
+public class CaptchaUtil {
 
     public static final String KEY = "LOGIN_KEY";
 

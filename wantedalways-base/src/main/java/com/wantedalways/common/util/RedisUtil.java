@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -77,5 +78,19 @@ public class RedisUtil {
             var5.printStackTrace();
             return false;
         }
+    }
+
+    /**
+     * 删除
+     */
+    public void del(String... key) {
+        if (key != null && key.length > 0) {
+            if (key.length == 1) {
+                this.redisTemplate.delete(key[0]);
+            } else {
+                this.redisTemplate.delete(Arrays.asList(key));
+            }
+        }
+
     }
 }
