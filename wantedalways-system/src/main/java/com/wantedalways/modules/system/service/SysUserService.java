@@ -21,7 +21,7 @@ public interface SysUserService extends IService<SysUser> {
      * @param userId 用户账号
      * @return 登录用户信息
      */
-    LoginUser getEncodeUserInfoByUserId(String userId);
+    LoginUser getUserByUserId(String userId);
 
     /**
      * 检验用户有效性

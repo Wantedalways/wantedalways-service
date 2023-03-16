@@ -9,11 +9,13 @@
         <result column="username" property="name" />
         <result column="work_num" property="workNum" />
         <result column="password" property="password" />
+        <result column="org_code" property="orgCode" />
         <result column="salt" property="salt" />
         <result column="position" property="position" />
         <result column="gender" property="gender" />
         <result column="email" property="email" />
         <result column="avatar" property="avatar" />
+        <result column="birthday" property="birthday" />
         <result column="status" property="status" />
         <result column="create_by" property="createBy" />
         <result column="create_time" property="createTime" />
@@ -21,12 +23,4 @@
         <result column="update_time" property="updateTime" />
     </resultMap>
 
-    <!-- 通用查询结果列 -->
-    <sql id="Base_Column_List">
-        id, user_id, username, work_num, password, salt, position, gender, email, avatar, status, create_by, create_time, update_by, update_time
-    </sql>
-
-    <select id="selectUserByUserId" resultType="com.wantedalways.modules.system.entity.SysUser">
-        select <include refid="Base_Column_List"/> from sys_user where user_id = #{userId} and status != 0
-    </select>
 </mapper>

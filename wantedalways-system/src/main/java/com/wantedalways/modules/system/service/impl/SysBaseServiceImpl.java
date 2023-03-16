@@ -3,7 +3,6 @@ package com.wantedalways.modules.system.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wantedalways.common.api.CommonApi;
 import com.wantedalways.common.system.vo.LoginUser;
-import com.wantedalways.common.util.SensitiveInfoUtil;
 import com.wantedalways.modules.system.dao.SysUserRoleDao;
 import com.wantedalways.modules.system.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -33,16 +32,8 @@ public class SysBaseServiceImpl implements CommonApi {
         if (StringUtils.isEmpty(userId)) {
             return null;
         }
-        LoginUser loginUser = sysUserService.getEncodeUserInfoByUserId(userId);
 
-        try {
-            // 信息脱敏
-            SensitiveInfoUtil.handlerObject(loginUser, false);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-
-        return loginUser;
+        return sysUserService.getUserByUserId(userId);
     }
 
     @Override

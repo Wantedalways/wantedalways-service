@@ -1,9 +1,11 @@
 package com.wantedalways.modules.system.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.wantedalways.common.api.vo.Result;
+import com.wantedalways.common.constant.CacheConstant;
 import com.wantedalways.common.constant.CommonConstant;
 import com.wantedalways.common.system.vo.LoginUser;
 import com.wantedalways.common.util.RedisUtil;
@@ -13,6 +15,7 @@ import com.wantedalways.modules.system.entity.SysUser;
 import com.wantedalways.modules.system.service.SysUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.LinkedHashMap;
@@ -35,12 +38,14 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
     private RedisUtil redisUtil;
 
     @Override
-    public LoginUser getEncodeUserInfoByUserId(String userId) {
+    @Cacheable(cacheNames= CacheConstant.SYS_USERS_CACHE, key="#userId")
+    public LoginUser getUserByUserId(String userId) {
         if (StringUtils.isEmpty(userId)) {
             return null;
         }
-
-        SysUser sysUser = sysUserDao.selectUserByUserId(userId);
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysUser::getUserId, userId);
+        SysUser sysUser = sysUserDao.selectOne(queryWrapper);
         if (sysUser == null) {
             return null;
         }

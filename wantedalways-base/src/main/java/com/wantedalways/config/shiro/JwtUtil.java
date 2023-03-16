@@ -12,7 +12,6 @@ import com.wantedalways.common.api.vo.Result;
 import com.wantedalways.common.constant.CacheConstant;
 import com.wantedalways.common.system.vo.LoginUser;
 import com.wantedalways.common.util.RedisUtil;
-import com.wantedalways.common.util.SensitiveInfoUtil;
 
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
@@ -68,17 +67,11 @@ public class JwtUtil {
      * @return
      */
     public static LoginUser getLoginUser(String userId, RedisUtil redisUtil, CommonApi commonApi) {
-        LoginUser loginUser = null;
+        LoginUser loginUser;
         String loginUserKey = CacheConstant.SYS_USERS_CACHE + "::" + userId;
         // 通过redis获取缓存用户，防止system服务问题影响到微服务间调用
         if (redisUtil.hasKey(loginUserKey)) {
             loginUser = (LoginUser) redisUtil.get(loginUserKey);
-            //解密用户
-            try {
-                SensitiveInfoUtil.handlerObject(loginUser, false);
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
         } else {
             // 从数据库查询用户信息
             loginUser = commonApi.getUserByUserId(userId);

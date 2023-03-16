@@ -8,6 +8,7 @@ import com.wantedalways.common.api.vo.Result;
 import com.wantedalways.common.constant.CommonConstant;
 import com.wantedalways.common.util.CaptchaUtil;
 import com.wantedalways.common.util.RedisUtil;
+import com.wantedalways.common.util.SpringContextUtil;
 import com.wantedalways.common.util.encryption.Md5Util;
 import com.wantedalways.common.util.encryption.PasswordUtil;
 import com.wantedalways.config.BaseConfig;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -55,7 +57,6 @@ public class LoginController {
         String origin = lowerCaseCaptcha + key + baseConfig.getSignatureSecret();
         String realKey = Md5Util.md5Encode(origin, "utf-8");
         redisUtil.set(realKey, lowerCaseCaptcha, 60);
-        log.info("获取验证码，Redis key = {}，checkCode = {}", realKey, captcha);
 
         try {
             // 生成base64字符串
@@ -78,7 +79,7 @@ public class LoginController {
         String origin = lowerCaseCaptcha + sysLoginModel.getCheckKey() + baseConfig.getSignatureSecret();
         String realKey = Md5Util.md5Encode(origin, "utf-8");
         String checkCode = (String) redisUtil.get(realKey);
-        if (checkCode == null || !lowerCaseCaptcha.equals(checkCode)) {
+        if (!lowerCaseCaptcha.equals(checkCode)) {
             return result.setError(HttpStatus.PRECONDITION_FAILED.value(), "验证码错误！");
         }
 

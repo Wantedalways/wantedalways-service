@@ -57,6 +57,9 @@ public class SysUser implements Serializable {
     @TableField("password")
     private String password;
 
+    @TableField("org_code")
+    private Integer orgCode;
+
     /**
      * 密码盐
      */
