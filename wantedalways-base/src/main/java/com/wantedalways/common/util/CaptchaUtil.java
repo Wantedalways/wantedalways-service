@@ -1,7 +1,5 @@
 package com.wantedalways.common.util;
 
-import com.wantedalways.common.util.encryption.Md5Util;
-
 import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletResponse;
 import java.awt.*;

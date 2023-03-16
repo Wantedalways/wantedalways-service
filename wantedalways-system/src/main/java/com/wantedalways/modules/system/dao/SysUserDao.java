@@ -3,7 +3,6 @@ package com.wantedalways.modules.system.dao;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.wantedalways.modules.system.entity.SysUser;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
 
 /**
  * <p>

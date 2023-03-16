@@ -45,7 +45,7 @@ public class RedisConfig {
     public RedisTemplate<String, Object> redisTemplate(LettuceConnectionFactory lettuceConnectionFactory) {
         log.info("redis配置初始化...");
         Jackson2JsonRedisSerializer<Object> jackson2JsonRedisSerializer = jacksonSerializer();
-        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<String, Object>();
+        RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(lettuceConnectionFactory);
         RedisSerializer<String> stringSerializer = new StringRedisSerializer();
 

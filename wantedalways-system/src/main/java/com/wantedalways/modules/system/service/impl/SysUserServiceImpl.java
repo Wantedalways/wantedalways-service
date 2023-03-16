@@ -38,7 +38,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
     private RedisUtil redisUtil;
 
     @Override
-    @Cacheable(cacheNames= CacheConstant.SYS_USERS_CACHE, key="#userId")
+    @Cacheable(cacheNames = CacheConstant.SYS_USERS_CACHE, key="#userId")
     public LoginUser getUserByUserId(String userId) {
         if (StringUtils.isEmpty(userId)) {
             return null;
@@ -84,7 +84,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
         redisUtil.set(CommonConstant.PREFIX_USER_TOKEN + token, token, JwtUtil.EXPIRE_TIME * 2 / 1000);
 
         // 生成信息
-        object.put("userInfo", sysUser);
+        object.put("sysUser", sysUser);
         result.setSuccess("登录成功", object);
     }
 }

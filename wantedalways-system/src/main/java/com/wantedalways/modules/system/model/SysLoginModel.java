@@ -1,8 +1,6 @@
 package com.wantedalways.modules.system.model;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * 登录对象

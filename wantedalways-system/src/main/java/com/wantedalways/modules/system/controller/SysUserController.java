@@ -4,15 +4,16 @@ package com.wantedalways.modules.system.controller;
 import cn.hutool.core.util.RandomUtil;
 import com.wantedalways.common.api.vo.Result;
 import com.wantedalways.common.constant.CommonConstant;
-import com.wantedalways.common.util.SpringContextUtil;
 import com.wantedalways.common.util.encryption.PasswordUtil;
 import com.wantedalways.modules.system.entity.SysUser;
 import com.wantedalways.modules.system.service.SysUserService;
 import com.wantedalways.modules.system.vo.SysUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Date;
 
 /**

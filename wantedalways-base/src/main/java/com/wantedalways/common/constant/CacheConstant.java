@@ -9,7 +9,7 @@ public interface CacheConstant {
     /**
      * 登录用户信息缓存
      */
-    String SYS_USERS_CACHE = "sys:cache:encrypt:user";
+    String SYS_USERS_CACHE = "sys:cache:user";
 
     /**
      * 字典表缓存

@@ -3,12 +3,10 @@ package com.wantedalways.modules.system.controller;
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.wantedalways.common.api.vo.Result;
 import com.wantedalways.common.constant.CommonConstant;
 import com.wantedalways.common.util.CaptchaUtil;
 import com.wantedalways.common.util.RedisUtil;
-import com.wantedalways.common.util.SpringContextUtil;
 import com.wantedalways.common.util.encryption.Md5Util;
 import com.wantedalways.common.util.encryption.PasswordUtil;
 import com.wantedalways.config.BaseConfig;
@@ -20,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -56,7 +53,7 @@ public class LoginController {
         // 加入密钥作为混淆
         String origin = lowerCaseCaptcha + key + baseConfig.getSignatureSecret();
         String realKey = Md5Util.md5Encode(origin, "utf-8");
-        redisUtil.set(realKey, lowerCaseCaptcha, 60);
+        redisUtil.set(realKey, lowerCaseCaptcha, 120);
 
         try {
             // 生成base64字符串
