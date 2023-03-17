@@ -25,12 +25,12 @@ public class LoginUser {
     /**
      * 用户名（对应企业微信）
      */
-    private String userId;
+    private String username;
 
     /**
      * 姓名
      */
-    private String username;
+    private String realName;
 
     /**
      * 工号
@@ -47,10 +47,6 @@ public class LoginUser {
      */
     private Integer orgCode;
 
-    /**
-     * 职务
-     */
-    private String position;
 
     /**
      * 性别（0，未定义；1，男；2，女）

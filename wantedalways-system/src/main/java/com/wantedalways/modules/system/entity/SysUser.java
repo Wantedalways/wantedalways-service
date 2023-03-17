@@ -4,9 +4,11 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -34,16 +36,16 @@ public class SysUser implements Serializable {
     private String id;
 
     /**
-     * 用户名（对应企业微信）
+     * 用户账号（对应企业微信）
      */
-    @TableField("user_id")
-    private String userId;
+    @TableField("username")
+    private String username;
 
     /**
      * 姓名
      */
-    @TableField("username")
-    private String username;
+    @TableField("real_name")
+    private String realName;
 
     /**
      * 工号
@@ -57,6 +59,9 @@ public class SysUser implements Serializable {
     @TableField("password")
     private String password;
 
+    /**
+     * 当前登录部门编码
+     */
     @TableField("org_code")
     private Integer orgCode;
 
@@ -65,12 +70,6 @@ public class SysUser implements Serializable {
      */
     @TableField("salt")
     private String salt;
-
-    /**
-     * 职务
-     */
-    @TableField("position")
-    private String position;
 
     /**
      * 性别（0，未定义；1，男；2，女）
@@ -94,6 +93,8 @@ public class SysUser implements Serializable {
      * 生日
      */
     @TableField("birthday")
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd")
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthday;
 
     /**
@@ -125,6 +126,4 @@ public class SysUser implements Serializable {
      */
     @TableField("update_time")
     private Date updateTime;
-
-
 }

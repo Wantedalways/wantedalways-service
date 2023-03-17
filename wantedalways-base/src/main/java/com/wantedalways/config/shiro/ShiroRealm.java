@@ -53,20 +53,20 @@ public class ShiroRealm extends AuthorizingRealm {
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principalCollection) {
         log.info("认证权限...");
 
-        String userId = null;
+        String username = null;
         if (principalCollection != null) {
             LoginUser sysUser = (LoginUser) principalCollection.getPrimaryPrincipal();
-            userId = sysUser.getUserId();
+            username = sysUser.getUsername();
         }
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         log.info("权限认证成功！");
 
         // 设置用户角色集合
-        Set<String> roleSet = commonApi.getUserRoles(userId);
+        Set<String> roleSet = commonApi.getUserRoles(username);
         info.setRoles(roleSet);
 
         // 设置用户权限集合
-        Set<String> permissionSet = commonApi.getUserPermissions(userId);
+        Set<String> permissionSet = commonApi.getUserPermissions(username);
         info.addStringPermissions(permissionSet);
         return info;
     }
@@ -100,14 +100,14 @@ public class ShiroRealm extends AuthorizingRealm {
      * 检验token有效性
      */
     private LoginUser checkUserTokenIsEffect(String token) throws AuthenticationException {
-        // 获取userId
-        String userId = JwtUtil.getUserIdFromToken(token);
-        if (userId == null) {
+        // 获取username
+        String username = JwtUtil.getUsernameFromToken(token);
+        if (username == null) {
             throw new AuthenticationException("token无效！");
         }
 
         log.debug("token有效性验证...");
-        LoginUser loginUser = JwtUtil.getLoginUser(userId, redisUtil, commonApi);
+        LoginUser loginUser = JwtUtil.getLoginUser(username, redisUtil, commonApi);
         // 判断用户是否存在
         if (loginUser == null) {
             throw new AuthenticationException("当前用户不存在！");
@@ -117,7 +117,7 @@ public class ShiroRealm extends AuthorizingRealm {
             throw new AuthenticationException("当前用户已禁用，请联系管理员！");
         }
         // 检验token是否失效
-        if (!jwtTokenRefresh(token, userId, loginUser.getPassword())) {
+        if (!jwtTokenRefresh(token, username, loginUser.getPassword())) {
             throw new AuthenticationException("token失效，请重新登陆！");
         }
 
@@ -130,14 +130,14 @@ public class ShiroRealm extends AuthorizingRealm {
      * 2.用户请求时判断token超过有效期，但redis中仍存在相应的缓存，则说明用户在线操作，则重新生成token并覆盖缓存
      * 3.redis中找不到相应缓存，则说明用户长时间未操作，返回token失效
      */
-    private boolean jwtTokenRefresh(String token, String userId, String password) {
+    private boolean jwtTokenRefresh(String token, String username, String password) {
         // 获取redis缓存token
         String cacheToken = String.valueOf(redisUtil.get(CommonConstant.PREFIX_USER_TOKEN + token));
         if (StringUtils.isNotEmpty(cacheToken)) {
             // 检验token有效性
-            if (!JwtUtil.verify(cacheToken, userId, password)) {
+            if (!JwtUtil.verify(cacheToken, username, password)) {
                 // token失效则重新生成
-                String newAuthorization = JwtUtil.sign(userId, password);
+                String newAuthorization = JwtUtil.sign(username, password);
                 // 设置超时时间
                 redisUtil.set(CommonConstant.PREFIX_USER_TOKEN + token, newAuthorization);
                 redisUtil.expire(CommonConstant.PREFIX_USER_TOKEN + token, JwtUtil.EXPIRE_TIME * 2 / 1000);

@@ -53,10 +53,10 @@ public class JwtUtil {
     /**
      * 获得token中的信息无需secret解密也能获得
      */
-    public static String getUserIdFromToken(String token) {
+    public static String getUsernameFromToken(String token) {
         try {
             DecodedJWT jwt = JWT.decode(token);
-            return jwt.getClaim("userId").asString();
+            return jwt.getClaim("username").asString();
         } catch (JWTDecodeException e) {
             return null;
         }
@@ -66,15 +66,15 @@ public class JwtUtil {
      * 获取登录用户
      * @return
      */
-    public static LoginUser getLoginUser(String userId, RedisUtil redisUtil, CommonApi commonApi) {
+    public static LoginUser getLoginUser(String username, RedisUtil redisUtil, CommonApi commonApi) {
         LoginUser loginUser;
-        String loginUserKey = CacheConstant.SYS_USERS_CACHE + "::" + userId;
+        String loginUserKey = CacheConstant.SYS_USERS_CACHE + "::" + username;
         // 通过redis获取缓存用户，防止system服务问题影响到微服务间调用
         if (redisUtil.hasKey(loginUserKey)) {
             loginUser = (LoginUser) redisUtil.get(loginUserKey);
         } else {
             // 从数据库查询用户信息
-            loginUser = commonApi.getUserByUserId(userId);
+            loginUser = commonApi.getUserByUsername(username);
         }
         return loginUser;
     }
@@ -82,10 +82,10 @@ public class JwtUtil {
     /**
      * 检验token
      */
-    public static boolean verify(String token, String userId, String password) {
+    public static boolean verify(String token, String username, String password) {
         // 根据密码生成JWT效验器
         Algorithm algorithm = Algorithm.HMAC256(password);
-        JWTVerifier verifier = JWT.require(algorithm).withClaim("userId", userId).build();
+        JWTVerifier verifier = JWT.require(algorithm).withClaim("username", username).build();
         // 效验TOKEN
         try {
             verifier.verify(token);
@@ -98,10 +98,10 @@ public class JwtUtil {
     /**
      * 生成加密后token
      */
-    public static String sign(String userId, String password) {
+    public static String sign(String username, String password) {
         Date date = new Date(System.currentTimeMillis() + EXPIRE_TIME);
         Algorithm algorithm = Algorithm.HMAC256(password);
         // 附带username信息
-        return JWT.create().withClaim("userId", userId).withExpiresAt(date).sign(algorithm);
+        return JWT.create().withClaim("username", username).withExpiresAt(date).sign(algorithm);
     }
 }

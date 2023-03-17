@@ -9,8 +9,8 @@
         <result column="role_id" property="roleId" />
     </resultMap>
 
-    <select id="selectRoleByUserId" resultType="String">
-        select role_code from sys_role where id in (select role_id from sys_user_role where user_id = (select id from sys_user where user_id = #{userId}))
+    <select id="selectRoleByUsername" resultType="String">
+        select role_code from sys_role where id in (select role_id from sys_user_role where user_id = (select id from sys_user where username = #{username}))
     </select>
 
 </mapper>

@@ -36,7 +36,7 @@ public class SysUserController {
         SysUser user = sysUserVo.getSysUser();
         // 密码加盐
         String salt = RandomUtil.randomString(CommonConstant.BASE_CHECK_CODES, 8);
-        String encodePassword = PasswordUtil.encrypt(user.getUserId(), user.getPassword(), salt);
+        String encodePassword = PasswordUtil.encrypt(user.getUsername(), user.getPassword(), salt);
 
         user.setPassword(encodePassword);
         user.setSalt(salt);

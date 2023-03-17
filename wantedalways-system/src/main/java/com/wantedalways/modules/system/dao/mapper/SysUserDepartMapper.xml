@@ -12,4 +12,5 @@
         <result column="is_major" property="major" />
     </resultMap>
 
+
 </mapper>

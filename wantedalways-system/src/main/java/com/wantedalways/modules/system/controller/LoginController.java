@@ -80,9 +80,9 @@ public class LoginController {
             return result.setError(HttpStatus.PRECONDITION_FAILED.value(), "验证码错误！");
         }
 
-        String userId = sysLoginModel.getUserId();
+        String username = sysLoginModel.getUsername();
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(SysUser::getUserId, userId);
+        queryWrapper.eq(SysUser::getUsername, username);
         SysUser sysUser = sysUserService.getOne(queryWrapper);
         // 校验用户有效性
         result = sysUserService.checkUserIsEffective(sysUser);
@@ -90,7 +90,7 @@ public class LoginController {
             return result;
         }
         // 校验密码
-        String userPassword = PasswordUtil.encrypt(userId, sysLoginModel.getPassword(), sysUser.getSalt());
+        String userPassword = PasswordUtil.encrypt(username, sysLoginModel.getPassword(), sysUser.getSalt());
         String sysPassword = sysUser.getPassword();
         if (!sysPassword.equals(userPassword)) {
             return result.setError(500, "用户名或密码错误！");

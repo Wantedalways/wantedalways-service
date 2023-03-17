@@ -12,22 +12,22 @@ public interface CommonApi {
 
     /**
      * 根据用户账号获取登录用户
-     * @param userId 用户账号
+     * @param username 用户账号
      * @return 登录用户
      */
-    LoginUser getUserByUserId(String userId);
+    LoginUser getUserByUsername(String username);
 
     /**
      * 查询用户角色信息
-     * @param userId 用户账号
+     * @param username 用户账号
      * @return 角色集合
      */
-    Set<String> getUserRoles(String userId);
+    Set<String> getUserRoles(String username);
 
     /**
      * 查询用户权限信息
-     * @param userId 用户账号
+     * @param username 用户账号
      * @return 权限集合
      */
-    Set<String> getUserPermissions(String userId);
+    Set<String> getUserPermissions(String username);
 }

@@ -12,7 +12,7 @@ public class SysLoginModel {
     /**
      * 用户名
      */
-    private String userId;
+    private String username;
 
     /**
      * 密码

@@ -1,10 +1,10 @@
 package com.wantedalways.modules.system.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -17,8 +17,9 @@ import java.util.Date;
  * @author Wantedalways
  * @since 2023-03-13
  */
-@Getter
-@Setter
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
 @TableName("sys_role")
 public class SysRole implements Serializable {
 
@@ -27,20 +28,26 @@ public class SysRole implements Serializable {
     /**
      * 主键id
      */
-    @TableId("id")
+    @TableId(value = "id", type = IdType.ASSIGN_UUID)
     private String id;
 
     /**
      * 角色名称
      */
-    @TableField("name")
-    private String name;
+    @TableField("role_name")
+    private String roleName;
 
     /**
      * 角色编码
      */
-    @TableField("code")
-    private String code;
+    @TableField("role_code")
+    private String roleCode;
+
+    /**
+     * 父角色id
+     */
+    @TableField("parent_id")
+    private String parentId;
 
     /**
      * 描述

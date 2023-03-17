@@ -20,8 +20,8 @@ public interface SysUserRoleDao extends BaseMapper<SysUserRole> {
 
     /**
      * 查询用户角色信息
-     * @param userId 用户账号
+     * @param username 用户账号
      * @return 角色集合
      */
-    List<String> selectRoleByUserId(@Param("userId") String userId);
+    List<String> selectRoleByUsername(@Param("username") String username);
 }

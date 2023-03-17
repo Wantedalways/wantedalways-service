@@ -38,13 +38,13 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
     private RedisUtil redisUtil;
 
     @Override
-    @Cacheable(cacheNames = CacheConstant.SYS_USERS_CACHE, key="#userId")
-    public LoginUser getUserByUserId(String userId) {
-        if (StringUtils.isEmpty(userId)) {
+    @Cacheable(cacheNames = CacheConstant.SYS_USERS_CACHE, key="#username")
+    public LoginUser getUserByUsername(String username) {
+        if (StringUtils.isEmpty(username)) {
             return null;
         }
         LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(SysUser::getUserId, userId);
+        queryWrapper.eq(SysUser::getUsername, username);
         SysUser sysUser = sysUserDao.selectOne(queryWrapper);
         if (sysUser == null) {
             return null;
@@ -76,10 +76,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
     public void setUserInfo(SysUser sysUser, Result<JSONObject> result) {
         JSONObject object = new JSONObject(new LinkedHashMap<>());
 
-        String userId = sysUser.getUserId();
+        String userIusername = sysUser.getUsername();
         String password = sysUser.getPassword();
         // 生成token
-        String token = JwtUtil.sign(userId, password);
+        String token = JwtUtil.sign(userIusername, password);
         object.put("token", token);
         redisUtil.set(CommonConstant.PREFIX_USER_TOKEN + token, token, JwtUtil.EXPIRE_TIME * 2 / 1000);
 

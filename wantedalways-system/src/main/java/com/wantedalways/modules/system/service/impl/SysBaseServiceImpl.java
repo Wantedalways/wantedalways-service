@@ -28,24 +28,24 @@ public class SysBaseServiceImpl implements CommonApi {
     private SysUserRoleDao sysUserRoleDao;
 
     @Override
-    public LoginUser getUserByUserId(String userId) {
-        if (StringUtils.isEmpty(userId)) {
+    public LoginUser getUserByUsername(String username) {
+        if (StringUtils.isEmpty(username)) {
             return null;
         }
 
-        return sysUserService.getUserByUserId(userId);
+        return sysUserService.getUserByUsername(username);
     }
 
     @Override
-    public Set<String> getUserRoles(String userId) {
+    public Set<String> getUserRoles(String username) {
         // 查询用户拥有的角色集合
-        List<String> roles = sysUserRoleDao.selectRoleByUserId(userId);
-        log.info("通过数据库读取用户角色，UserId：" + userId);
+        List<String> roles = sysUserRoleDao.selectRoleByUsername(username);
+        log.info("通过数据库读取用户角色，UserId：" + username);
         return new HashSet<>(roles);
     }
 
     @Override
-    public Set<String> getUserPermissions(String userId) {
+    public Set<String> getUserPermissions(String username) {
        return null;
     }
 }

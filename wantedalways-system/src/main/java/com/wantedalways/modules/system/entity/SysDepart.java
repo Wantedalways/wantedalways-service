@@ -52,6 +52,12 @@ public class SysDepart implements Serializable {
     private Integer workWxId;
 
     /**
+     * 部门编码
+     */
+    @TableField("code")
+    private String code;
+
+    /**
      * 排序
      */
     @TableField("order")
@@ -86,6 +92,5 @@ public class SysDepart implements Serializable {
      */
     @TableField("update_time")
     private Date updateTime;
-
 
 }
