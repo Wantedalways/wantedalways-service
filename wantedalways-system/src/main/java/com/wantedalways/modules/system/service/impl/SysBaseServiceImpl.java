@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -41,6 +42,10 @@ public class SysBaseServiceImpl implements CommonApi {
         // 查询用户拥有的角色集合
         List<String> roles = sysUserRoleDao.selectRoleByUsername(username);
         log.info("通过数据库读取用户角色，UserId：" + username);
+        if (roles == null) {
+            roles = new ArrayList<>();
+        }
+        roles.add("test");
         return new HashSet<>(roles);
     }
 

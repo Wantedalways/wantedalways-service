@@ -20,6 +20,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -67,6 +68,9 @@ public class ShiroRealm extends AuthorizingRealm {
 
         // 设置用户权限集合
         Set<String> permissionSet = commonApi.getUserPermissions(username);
+        if (permissionSet == null) {
+            permissionSet = new HashSet<>();
+        }
         info.addStringPermissions(permissionSet);
         return info;
     }

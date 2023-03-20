@@ -72,6 +72,12 @@
             </exclusions>
         </dependency>
 
+        <!--feign-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
+
         <!--工具类-->
         <dependency>
             <groupId>cn.hutool</groupId>
