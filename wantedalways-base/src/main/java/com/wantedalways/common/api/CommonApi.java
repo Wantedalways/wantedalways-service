@@ -26,8 +26,8 @@ public interface CommonApi {
 
     /**
      * 查询用户权限信息
-     * @param username 用户账号
+     * @param roleSet 角色集合
      * @return 权限集合
      */
-    Set<String> getUserPermissions(String username);
+    Set<String> getUserPermissions(Set<String> roleSet);
 }

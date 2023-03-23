@@ -3,6 +3,7 @@ package com.wantedalways.modules.system.service.impl;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wantedalways.common.api.CommonApi;
 import com.wantedalways.common.system.vo.LoginUser;
+import com.wantedalways.modules.system.dao.SysRolePermissionDao;
 import com.wantedalways.modules.system.dao.SysUserRoleDao;
 import com.wantedalways.modules.system.service.SysUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +29,9 @@ public class SysBaseServiceImpl implements CommonApi {
     @Autowired
     private SysUserRoleDao sysUserRoleDao;
 
+    @Autowired
+    private SysRolePermissionDao rolePermissionDao;
+
     @Override
     public LoginUser getUserByUsername(String username) {
         if (StringUtils.isEmpty(username)) {
@@ -39,18 +43,13 @@ public class SysBaseServiceImpl implements CommonApi {
 
     @Override
     public Set<String> getUserRoles(String username) {
-        // 查询用户拥有的角色集合
         List<String> roles = sysUserRoleDao.selectRoleByUsername(username);
-        log.info("通过数据库读取用户角色，UserId：" + username);
-        if (roles == null) {
-            roles = new ArrayList<>();
-        }
-        roles.add("test");
         return new HashSet<>(roles);
     }
 
     @Override
-    public Set<String> getUserPermissions(String username) {
-       return null;
+    public Set<String> getUserPermissions(Set<String> roleSet) {
+       List<String> permissions = rolePermissionDao.selectUserPermissions(roleSet);
+       return new HashSet<>(permissions);
     }
 }

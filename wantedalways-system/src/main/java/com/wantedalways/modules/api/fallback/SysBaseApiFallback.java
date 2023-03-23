@@ -25,7 +25,7 @@ public class SysBaseApiFallback implements SysBaseApi {
     }
 
     @Override
-    public Set<String> getUserPermissions(String username) {
+    public Set<String> getUserPermissions(Set<String> roleSet) {
         return null;
     }
 }

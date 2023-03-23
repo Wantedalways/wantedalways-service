@@ -4,13 +4,42 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.wantedalways.modules.system.entity.SysUserRole">
-        <id column="id" property="id" />
-        <result column="user_id" property="userId" />
-        <result column="role_id" property="roleId" />
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="role_id" property="roleId"/>
     </resultMap>
 
     <select id="selectRoleByUsername" resultType="String">
-        select role_code from sys_role where id in (select role_id from sys_user_role where user_id = (select id from sys_user where username = #{username}))
+        with recursive user_role (id, role_code) as (select id, role_code
+                                                     from sys_role
+                                                     where id in ((select role_id
+                                                                   from sys_user_role ur
+                                                                            join sys_user u on ur.user_id = u.id
+                                                                   where u.username = #{username}),
+                                                                  (select role_id
+                                                                   from sys_depart_role dr
+                                                                            join sys_depart d on dr.depart_id = d.id
+                                                                            join sys_user_depart ud on ud.depart_id = d.id
+                                                                            join sys_user u on u.id = ud.user_id
+                                                                   where u.username = #{username}),
+                                                                 (select role_id
+                                                                  from sys_post_role pr
+                                                                           join sys_post p on pr.post_id = p.id
+                                                                           join sys_user_post up on up.post_id = p.id
+                                                                           join sys_user u on u.id = up.user_id
+                                                                  where u.username = #{username}),
+                                                                 (select role_id
+                                                                  from sys_group_role gr
+                                                                           join sys_group g on gr.group_id = g.id
+                                                                           join sys_user_group ug on ug.group_id = g.id
+                                                                           join sys_user u on u.id = ug.user_id
+                                                                  where u.username = #{username}))
+                                                     union
+                                                     distinct
+                                                     select r.id, r.role_code
+                                                     from sys_role r
+                                                              join user_role tur on r.parent_id = tur.id)
+        select role_code from user_role;
     </select>
 
 </mapper>

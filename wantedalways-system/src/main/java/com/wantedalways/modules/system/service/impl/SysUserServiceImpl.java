@@ -76,10 +76,10 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserDao, SysUser> impleme
     public void setUserInfo(SysUser sysUser, Result<JSONObject> result) {
         JSONObject object = new JSONObject(new LinkedHashMap<>());
 
-        String userIusername = sysUser.getUsername();
+        String username = sysUser.getUsername();
         String password = sysUser.getPassword();
         // 生成token
-        String token = JwtUtil.sign(userIusername, password);
+        String token = JwtUtil.sign(username, password);
         object.put("token", token);
         redisUtil.set(CommonConstant.PREFIX_USER_TOKEN + token, token, JwtUtil.EXPIRE_TIME * 2 / 1000);
 

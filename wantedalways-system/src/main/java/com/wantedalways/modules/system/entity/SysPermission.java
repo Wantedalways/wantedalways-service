@@ -44,6 +44,12 @@ public class SysPermission implements Serializable {
     private String name;
 
     /**
+     * 权限编码
+     */
+    @TableField("code")
+    private String code;
+
+    /**
      * 图表
      */
     @TableField("icon")

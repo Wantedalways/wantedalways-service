@@ -7,6 +7,7 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingClas
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Set;
@@ -28,9 +29,20 @@ public interface SysBaseApi extends CommonApi {
     @GetMapping("/sys/api/getUserByUsername")
     LoginUser getUserByUsername(@RequestParam("username") String username);
 
+    /**
+     * 查询用户角色信息
+     * @param username 用户账号
+     * @return 角色集合
+     */
     @Override
-    Set<String> getUserRoles(String username);
+    @GetMapping("/sys/api/getUserRoles")
+    Set<String> getUserRoles(@RequestParam("username") String username);
 
+    /**
+     * 查询用户权限信息
+     * @param roleSet 角色集合
+     * @return 权限集合
+     */
     @Override
-    Set<String> getUserPermissions(String username);
+    Set<String> getUserPermissions(@RequestBody Set<String> roleSet);
 }

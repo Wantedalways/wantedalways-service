@@ -67,10 +67,7 @@ public class ShiroRealm extends AuthorizingRealm {
         info.setRoles(roleSet);
 
         // 设置用户权限集合
-        Set<String> permissionSet = commonApi.getUserPermissions(username);
-        if (permissionSet == null) {
-            permissionSet = new HashSet<>();
-        }
+        Set<String> permissionSet = commonApi.getUserPermissions(roleSet);
         info.addStringPermissions(permissionSet);
         return info;
     }
