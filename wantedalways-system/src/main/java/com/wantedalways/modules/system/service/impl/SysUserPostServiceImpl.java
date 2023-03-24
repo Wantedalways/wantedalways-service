@@ -1,9 +1,9 @@
 package com.wantedalways.modules.system.service.impl;
 
-import com.wantedalways.modules.system.entity.SysUserPost;
-import com.wantedalways.modules.system.dao.SysUserPostDao;
-import com.wantedalways.modules.system.service.SysUserPostService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wantedalways.modules.system.dao.SysUserPostDao;
+import com.wantedalways.modules.system.entity.SysUserPost;
+import com.wantedalways.modules.system.service.SysUserPostService;
 import org.springframework.stereotype.Service;
 
 /**

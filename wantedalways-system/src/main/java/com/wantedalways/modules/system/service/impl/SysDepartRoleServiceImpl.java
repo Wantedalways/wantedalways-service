@@ -1,9 +1,9 @@
 package com.wantedalways.modules.system.service.impl;
 
-import com.wantedalways.modules.system.entity.SysDepartRole;
-import com.wantedalways.modules.system.dao.SysDepartRoleDao;
-import com.wantedalways.modules.system.service.SysDepartRoleService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wantedalways.modules.system.dao.SysDepartRoleDao;
+import com.wantedalways.modules.system.entity.SysDepartRole;
+import com.wantedalways.modules.system.service.SysDepartRoleService;
 import org.springframework.stereotype.Service;
 
 /**

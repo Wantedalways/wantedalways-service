@@ -1,9 +1,9 @@
 package com.wantedalways.modules.system.service.impl;
 
-import com.wantedalways.modules.system.entity.SysGroup;
-import com.wantedalways.modules.system.dao.SysGroupDao;
-import com.wantedalways.modules.system.service.SysGroupService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wantedalways.modules.system.dao.SysGroupDao;
+import com.wantedalways.modules.system.entity.SysGroup;
+import com.wantedalways.modules.system.service.SysGroupService;
 import org.springframework.stereotype.Service;
 
 /**

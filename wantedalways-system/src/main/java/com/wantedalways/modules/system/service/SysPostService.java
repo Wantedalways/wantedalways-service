@@ -1,7 +1,7 @@
 package com.wantedalways.modules.system.service;
 
-import com.wantedalways.modules.system.entity.SysPost;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.wantedalways.modules.system.entity.SysPost;
 
 /**
  * <p>

@@ -12,10 +12,10 @@
     <select id="selectUserPermissions" resultType="String">
         select p.code
         from sys_permission p
-                 join sys_role_permission rp on rp.permission_id = p.id
-                 join sys_role r on r.id = rp.role_id
+        join sys_role_permission rp on rp.permission_id = p.id
+        join sys_role r on r.id = rp.role_id
         where r.role_code in
-        <foreach collection="collection" open="(" close=")" separator="," item="roleCode">
+        <foreach collection="roleSet" open="(" close=")" separator="," item="roleCode">
             #{roleCode}
         </foreach>
     </select>

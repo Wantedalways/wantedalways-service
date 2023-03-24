@@ -1,7 +1,7 @@
 package com.wantedalways.modules.system.dao;
 
-import com.wantedalways.modules.system.entity.SysPost;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wantedalways.modules.system.entity.SysPost;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

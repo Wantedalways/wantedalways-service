@@ -1,9 +1,9 @@
 package com.wantedalways.modules.system.service.impl;
 
-import com.wantedalways.modules.system.entity.SysRolePermission;
-import com.wantedalways.modules.system.dao.SysRolePermissionDao;
-import com.wantedalways.modules.system.service.SysRolePermissionService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.wantedalways.modules.system.dao.SysRolePermissionDao;
+import com.wantedalways.modules.system.entity.SysRolePermission;
+import com.wantedalways.modules.system.service.SysRolePermissionService;
 import org.springframework.stereotype.Service;
 
 /**

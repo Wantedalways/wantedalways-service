@@ -1,5 +1,6 @@
 package com.wantedalways.modules.system.service.impl;
 
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wantedalways.common.api.CommonApi;
 import com.wantedalways.common.system.vo.LoginUser;
@@ -10,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,7 +49,10 @@ public class SysBaseServiceImpl implements CommonApi {
 
     @Override
     public Set<String> getUserPermissions(Set<String> roleSet) {
-       List<String> permissions = rolePermissionDao.selectUserPermissions(roleSet);
-       return new HashSet<>(permissions);
+        if (CollectionUtils.isEmpty(roleSet)) {
+            return new HashSet<>();
+        }
+        List<String> permissions = rolePermissionDao.selectUserPermissions(roleSet);
+        return new HashSet<>(permissions);
     }
 }
