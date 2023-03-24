@@ -65,10 +65,10 @@ public class LoginController {
     }
 
     /**
-     * 账号登录
+     * 账号或手机号登录
      */
-    @PostMapping("/idLogin")
-    public Result<JSONObject> idLogin(@RequestBody SysLoginModel sysLoginModel) {
+    @PostMapping("/accountLogin")
+    public Result<JSONObject> login(@RequestBody SysLoginModel sysLoginModel) {
         Result<JSONObject> result = new Result<>();
         // 校验验证码
         String captcha = sysLoginModel.getCaptcha();
@@ -80,15 +80,31 @@ public class LoginController {
             return result.setError(HttpStatus.PRECONDITION_FAILED.value(), "验证码错误！");
         }
 
-        String username = sysLoginModel.getUsername();
-        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(SysUser::getUsername, username);
-        SysUser sysUser = sysUserService.getOne(queryWrapper);
+        SysUser sysUser = null;
+        String username = null;
+        int type = sysLoginModel.getType();
+        if (type == 0 ) {
+            // 用户名登录
+            username = sysLoginModel.getLoginInfo();
+            LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(SysUser::getUsername, username);
+            sysUser = sysUserService.getOne(queryWrapper);
+        }
+        if (type == 1) {
+            // 手机号登录
+            String phone = sysLoginModel.getLoginInfo();
+            LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+            queryWrapper.eq(SysUser::getPhone, phone);
+            sysUser = sysUserService.getOne(queryWrapper);
+            username = sysUser.getUsername();
+        }
+
         // 校验用户有效性
         result = sysUserService.checkUserIsEffective(sysUser);
         if (!result.getSuccess()) {
             return result;
         }
+
         // 校验密码
         String userPassword = PasswordUtil.encrypt(username, sysLoginModel.getPassword(), sysUser.getSalt());
         String sysPassword = sysUser.getPassword();

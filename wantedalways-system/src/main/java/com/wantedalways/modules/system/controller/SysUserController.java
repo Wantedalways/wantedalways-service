@@ -29,11 +29,20 @@ public class SysUserController {
     @Autowired
     private SysUserService sysUserService;
 
+    @GetMapping("/list")
+    public Result<?> list() {
+        return null;
+    }
+
+    /**
+     * 添加用户
+     */
     @PostMapping("/add")
     public Result<?> add(@RequestBody SysUserVo sysUserVo) {
         SysUser user = sysUserVo.getSysUser();
         // 密码加盐
         String salt = RandomUtil.randomString(CommonConstant.BASE_CHECK_CODES, 8);
+        // 设定初始密码
         String encodePassword = PasswordUtil.encrypt(user.getUsername(), user.getPassword(), salt);
 
         user.setPassword(encodePassword);

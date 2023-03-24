@@ -78,6 +78,12 @@ public class SysUser implements Serializable {
     private Integer gender;
 
     /**
+     * 手机号
+     */
+    @TableField("phone")
+    private String phone;
+
+    /**
      * 邮箱
      */
     @TableField("email")

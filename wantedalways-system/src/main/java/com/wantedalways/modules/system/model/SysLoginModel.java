@@ -10,9 +10,14 @@ import lombok.Data;
 public class SysLoginModel {
 
     /**
-     * 用户名
+     * 登录类型（0，用户名登录；1，手机号登录）
      */
-    private String username;
+    private Integer type;
+
+    /**
+     * 用户信息
+     */
+    private String loginInfo;
 
     /**
      * 密码
