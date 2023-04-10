@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 
 /**
@@ -43,7 +44,7 @@ public class LoginController {
      * 获取验证码
      */
     @GetMapping("/getCaptcha")
-    public Result<String> getCaptcha(String key) {
+    public Result<String> getCaptcha(@RequestParam String key) {
 
         // 生成验证码
         String captcha = RandomUtil.randomString(CommonConstant.BASE_CHECK_CODES, 4);
@@ -85,14 +86,14 @@ public class LoginController {
         int type = sysLoginModel.getType();
         if (type == 0 ) {
             // 用户名登录
-            username = sysLoginModel.getLoginInfo();
+            username = sysLoginModel.getAccount();
             LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.eq(SysUser::getUsername, username);
             sysUser = sysUserService.getOne(queryWrapper);
         }
         if (type == 1) {
             // 手机号登录
-            String phone = sysLoginModel.getLoginInfo();
+            String phone = sysLoginModel.getAccount();
             LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.eq(SysUser::getPhone, phone);
             sysUser = sysUserService.getOne(queryWrapper);
@@ -119,5 +120,14 @@ public class LoginController {
         redisUtil.del(realKey);
 
         return result;
+    }
+
+    /**
+     * 退出登录
+     */
+    @PostMapping("/logout")
+    public Result<?> logout(HttpServletRequest request) {
+        String token = request.getHeader(CommonConstant.ACCESS_TOKEN);
+        return null;
     }
 }

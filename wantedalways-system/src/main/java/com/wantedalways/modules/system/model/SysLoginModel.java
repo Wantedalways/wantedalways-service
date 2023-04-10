@@ -17,7 +17,7 @@ public class SysLoginModel {
     /**
      * 用户信息
      */
-    private String loginInfo;
+    private String account;
 
     /**
      * 密码
