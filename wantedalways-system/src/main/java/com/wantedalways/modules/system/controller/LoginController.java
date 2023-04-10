@@ -3,17 +3,24 @@ package com.wantedalways.modules.system.controller;
 import cn.hutool.core.util.RandomUtil;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.wantedalways.common.api.CommonApi;
 import com.wantedalways.common.api.vo.Result;
+import com.wantedalways.common.constant.CacheConstant;
 import com.wantedalways.common.constant.CommonConstant;
+import com.wantedalways.common.system.vo.LoginUser;
 import com.wantedalways.common.util.CaptchaUtil;
 import com.wantedalways.common.util.RedisUtil;
 import com.wantedalways.common.util.encryption.Md5Util;
 import com.wantedalways.common.util.encryption.PasswordUtil;
 import com.wantedalways.config.BaseConfig;
+import com.wantedalways.config.shiro.JwtUtil;
 import com.wantedalways.modules.system.entity.SysUser;
 import com.wantedalways.modules.system.model.SysLoginModel;
 import com.wantedalways.modules.system.service.SysUserService;
+import com.wantedalways.modules.system.service.impl.SysBaseServiceImpl;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -39,6 +46,9 @@ public class LoginController {
 
     @Autowired
     private SysUserService sysUserService;
+
+    @Autowired
+    private SysBaseServiceImpl sysBaseService;
 
     /**
      * 获取验证码
@@ -128,6 +138,24 @@ public class LoginController {
     @PostMapping("/logout")
     public Result<?> logout(HttpServletRequest request) {
         String token = request.getHeader(CommonConstant.ACCESS_TOKEN);
-        return null;
+        if (StringUtils.isEmpty(token)) {
+            return Result.error(500, "退出登录失败！");
+        }
+
+        String username = JwtUtil.getUsernameFromToken(token);
+        LoginUser loginUser = sysBaseService.getUserByUsername(username);
+        if (loginUser != null) {
+            // 清除token缓存
+            redisUtil.del(CommonConstant.PREFIX_USER_TOKEN + token);
+            // 清除shiro缓存
+            redisUtil.del(CacheConstant.PREFIX_USER_SHIRO_CACHE + loginUser.getId());
+            // 清除用户信息缓存
+            redisUtil.del(CacheConstant.SYS_USERS_CACHE + "::" + loginUser.getUsername());
+
+            SecurityUtils.getSubject().logout();
+            return Result.success("退出登录成功！");
+        } else {
+            return Result.error(500, "token无效！");
+        }
     }
 }

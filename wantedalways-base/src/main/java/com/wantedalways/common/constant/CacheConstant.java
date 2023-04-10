@@ -12,6 +12,11 @@ public interface CacheConstant {
     String SYS_USERS_CACHE = "sys:cache:user";
 
     /**
+     * shiro用户缓存
+     */
+    String PREFIX_USER_SHIRO_CACHE = "shiro:cache:com.wantedalways.config.shiro.ShiroRealm.authorizationCache:";
+
+    /**
      * 字典表缓存
      */
     String SYS_DICT_TABLE_CACHE = "sys:cache:dictTable";
