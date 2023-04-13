@@ -1,6 +1,7 @@
 package com.wantedalways.modules.system.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.wantedalways.modules.system.entity.SysPermission;
 import com.wantedalways.modules.system.entity.SysRolePermission;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -20,9 +21,16 @@ import java.util.Set;
 public interface SysRolePermissionDao extends BaseMapper<SysRolePermission> {
 
     /**
-     * 查询用户权限信息
-     * @param roleSet 角色集合
+     * 查询用户权限编码信息
+     * @param roleSet 角色编码集合
      * @return 权限集合
      */
     List<String> selectUserPermissions(@Param("roleSet") Set<String> roleSet);
+
+    /**
+     * 查询用户权限列表
+     * @param roleSet 角色编码集合
+     * @return 权限列表
+     */
+    List<SysPermission> selectUserPermissionsList(Set<String> roleSet);
 }

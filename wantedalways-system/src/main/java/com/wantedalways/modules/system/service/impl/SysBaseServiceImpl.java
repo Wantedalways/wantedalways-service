@@ -30,7 +30,7 @@ public class SysBaseServiceImpl implements CommonApi {
     private SysUserRoleDao sysUserRoleDao;
 
     @Autowired
-    private SysRolePermissionDao rolePermissionDao;
+    private SysRolePermissionDao sysRolePermissionDao;
 
     @Override
     public LoginUser getUserByUsername(String username) {
@@ -52,7 +52,7 @@ public class SysBaseServiceImpl implements CommonApi {
         if (CollectionUtils.isEmpty(roleSet)) {
             return new HashSet<>();
         }
-        List<String> permissions = rolePermissionDao.selectUserPermissions(roleSet);
+        List<String> permissions = sysRolePermissionDao.selectUserPermissions(roleSet);
         return new HashSet<>(permissions);
     }
 }

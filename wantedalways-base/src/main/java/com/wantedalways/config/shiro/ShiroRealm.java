@@ -2,6 +2,7 @@ package com.wantedalways.config.shiro;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.wantedalways.common.api.CommonApi;
+import com.wantedalways.common.constant.CacheConstant;
 import com.wantedalways.common.constant.CommonConstant;
 import com.wantedalways.common.system.vo.LoginUser;
 import com.wantedalways.common.util.RedisUtil;
@@ -64,6 +65,7 @@ public class ShiroRealm extends AuthorizingRealm {
         // 设置用户角色集合
         Set<String> roleSet = commonApi.getUserRoles(username);
         info.setRoles(roleSet);
+        redisUtil.set(CacheConstant.SYS_USER_CACHE_ROLES + "::" + username, roleSet, JwtUtil.EXPIRE_TIME * 2 / 1000);
 
         // 设置用户权限集合
         Set<String> permissionSet = commonApi.getUserPermissions(roleSet);
