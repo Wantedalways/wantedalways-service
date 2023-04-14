@@ -44,5 +44,4 @@ public class SysUserRole implements Serializable {
     @TableField("role_id")
     private String roleId;
 
-
 }

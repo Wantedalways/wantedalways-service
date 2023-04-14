@@ -82,6 +82,12 @@ public class SysPermission implements Serializable {
     private Integer sort;
 
     /**
+     * 总是在目录中显示（0，否；1，是）
+     */
+    @TableField("is_always_show")
+    private Boolean alwaysShow;
+
+    /**
      * 是否路由菜单（0，否；1，是）
      */
     @TableField("is_route")

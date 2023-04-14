@@ -55,7 +55,7 @@ public class SysRole implements Serializable {
      * 描述
      */
     @TableField("description")
-    private byte[] description;
+    private String description;
 
     /**
      * 创建人

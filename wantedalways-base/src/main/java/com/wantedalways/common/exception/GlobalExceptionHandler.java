@@ -19,4 +19,9 @@ public class GlobalExceptionHandler {
         log.error(exception.getMessage(), exception);
         return Result.error(510, "暂无权限，请联系管理员！");
     }
+
+    @ExceptionHandler({Exception.class})
+    public Result<?> handleServiceException(Exception exception) {
+        return Result.error(500, "操作失败！");
+    }
 }

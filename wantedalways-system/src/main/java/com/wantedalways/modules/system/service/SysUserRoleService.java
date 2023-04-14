@@ -1,7 +1,10 @@
 package com.wantedalways.modules.system.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.wantedalways.modules.system.entity.SysRole;
 import com.wantedalways.modules.system.entity.SysUserRole;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,10 @@ import com.wantedalways.modules.system.entity.SysUserRole;
  */
 public interface SysUserRoleService extends IService<SysUserRole> {
 
+    /**
+     * 根据用户id查询权限列表
+     * @param userId 用户id
+     * @return 用户权限列表
+     */
+    List<SysRole> queryRolesByUserId(String userId);
 }

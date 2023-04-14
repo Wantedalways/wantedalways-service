@@ -42,4 +42,11 @@
         select role_code from user_role;
     </select>
 
+    <select id="selectRolesByUserId" resultType="com.wantedalways.modules.system.entity.SysRole">
+        select r.id, r.role_name, r.role_code, r.parent_id, r.description
+        from sys_role r
+                 right join sys_user_role ur on r.id = ur.role_id
+        where ur.user_id = #{userId}
+    </select>
+
 </mapper>

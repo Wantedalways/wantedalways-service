@@ -29,5 +29,6 @@
         <foreach collection="roleSet" open="(" close=")" separator="," item="roleCode">
             #{roleCode}
         </foreach>
+        order by p.sort
     </select>
 </mapper>

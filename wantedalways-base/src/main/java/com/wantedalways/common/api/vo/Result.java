@@ -91,11 +91,18 @@ public class Result<T> {
         return result;
     }
 
-    public Result<T> setSuccess(String message, T data) {
+    public void setSuccess(String message, T data) {
         this.success = true;
         this.code = 200;
         this.message = message;
         this.data = data;
-        return this;
+    }
+
+    public static<T> Result<T> fail(String message) {
+        Result<T> result = new Result<>();
+        result.success = false;
+        result.code = 404;
+        result.message = message;
+        return result;
     }
 }
